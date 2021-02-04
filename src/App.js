@@ -6,6 +6,10 @@ import NavBar from "./Components/NavBar/NavBar";
 import Home from "./Pages/Home/Home";
 import JobDetails from "./Pages/JobDetails/JobDetails";
 import FavList from "./Pages/FavList/FavList";
+import configureStore from "./store"
+
+const store = configureStore();
+console.log("store: ", store);
 
 function App() {
   return (

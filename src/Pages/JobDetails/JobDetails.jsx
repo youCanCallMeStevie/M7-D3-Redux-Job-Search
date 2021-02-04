@@ -7,39 +7,37 @@ import { faBackward, faHeart } from "@fortawesome/free-solid-svg-icons";
 import "../JobDetails/JobDetails.css";
 import { connect } from "react-redux";
 
-
-const mapStateToProps = (state) => 
-{console.log("JobDetails State", state)
-return state;}
+const mapStateToProps = state => {
+  console.log("JobDetails State", state);
+  return state;
+};
 
 const mapDispatchToProps = dispatch => ({
-  addToFavs: jobId => 
-  dispatch({ 
-    type: "ADD_JOB_TO_FAVS", 
-    payload: jobId 
-  }),
-  removeFromFavs: jobId => 
-  dispatch({ 
-    type: "REMOVE_JOB_FROM_FAVS", 
-    payload: jobId 
-  }),
+  addToFavs: obj =>
+    dispatch({
+      type: "ADD_JOB_TO_FAVS",
+      payload: obj,
+    }),
+  removeFromFavs: obj =>
+    dispatch({
+      type: "REMOVE_JOB_FROM_FAVS",
+      payload: obj,
+    }),
 });
-
 
 function JobDetails(props) {
   const [jobDetails, setJobDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [toggleFav, setToggleFav] = useState(false);
 
-  // const handleFav = async () => {
+  // const handleFav =  () => {
   //   setToggleFav(!toggleFav);
   //   if (toggleFav){
-  //     await removeFromFavs(jobDetails?.id)
+  //   removeFromFavs(jobDetails?.id)
   //   } else {
-  //     await addToFavs(jobDetails?.id)
+  //    addToFavs(jobDetails?.id)
   //   }
   // };
-
 
   useEffect(() => {
     getJobInfo();
@@ -69,24 +67,35 @@ function JobDetails(props) {
                   className="logo"
                 />
                 {props.user.username ? (
-                  
-                  <Button
-                    className="every-button"
-                    onClick={() => 
-                      props.addToFavs(jobDetails?.id)}
-                  >
-                    {" "}
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      className="icon-padding"
-                      style={{ color: "red" }}
-                    />
-                  </Button>)
-                 
-                : (<div>**Log in to save job details</div>)} 
-
-
-
+                  toggleFav ? (
+                    <Button
+                      className="every-button"
+                      onClick={() => props.addToFavs(jobDetails)}
+                    >
+                      {" "}
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        className="icon-padding"
+                        style={{ color: "red" }}
+                      />
+                    </Button>
+                  ) : (
+                    <Button
+                      className="every-button"
+                      onClick={() => 
+                        props.addToFavs(jobDetails)}
+                    >
+                      {" "}
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        className="icon-padding"
+                        style={{ color: "white" }}
+                      />
+                    </Button>
+                  )
+                ) : (
+                  <div>**Log in to save job details</div>
+                )}
               </Col>
               <Col lg={6} md={12} className="px-4">
                 <h2>{jobDetails?.company}</h2>
@@ -100,7 +109,7 @@ function JobDetails(props) {
                     />
                     Go back
                   </Button>
-                  </Link>
+                </Link>
               </Col>
             </Row>
           </Container>
@@ -122,4 +131,6 @@ function JobDetails(props) {
   );
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(JobDetails));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(JobDetails)
+);

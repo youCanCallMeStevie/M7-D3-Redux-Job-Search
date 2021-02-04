@@ -14,10 +14,10 @@ export default function (state = {}, action) {
         return {
           ...state,
           favourites: {
-            ...state.cart,
+            ...state,
             jobs: [
               ...state.favourites.jobs.filter(
-                (jobId) => jobId !== action.payload
+                (job) => job.id !== action.payload.id //because now adding an object, have to check property
               ),
             ],
           },

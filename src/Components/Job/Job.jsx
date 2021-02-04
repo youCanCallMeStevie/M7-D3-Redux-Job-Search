@@ -13,13 +13,14 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  removeFromFavs: jobId =>
-    dispatch({ type: "REMOVE_JOB_FROM_FAVS", payload: jobId }),
+  removeFromFavs: obj =>
+    dispatch({ type: "REMOVE_JOB_FROM_FAVS", payload: obj }),
 });
 
 function Job(props) {
   const { job } = props;
-  console.log("ComponentJob: job", job); //single
+  console.log("ComponentJob: props", props); //single
+
 
   return (
     <div>
@@ -44,14 +45,14 @@ function Job(props) {
               </Button>
             </Link>
             {props.match.path == "/favs" && (
-              <Button variant="primary" className="every-button">
+              <Button variant="primary" className="every-button" onClick={
+                ()=> props.removeFromFavs(job)}>
                 {" "}
                 <FontAwesomeIcon
                   icon={faTrash}
                   className="icon-padding"
                   style={{ color: "red" }}
-                  onClick={() => 
-                    props.removeFromFavs(job?.id)}
+                  
                 />
                 Remove
               </Button>
