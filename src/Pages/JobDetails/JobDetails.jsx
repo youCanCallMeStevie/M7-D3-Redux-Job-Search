@@ -7,8 +7,9 @@ import { faBackward, faHeart } from "@fortawesome/free-solid-svg-icons";
 import "../JobDetails/JobDetails.css";
 import { connect } from "react-redux";
 
+
 const mapStateToProps = (state) => 
-{console.log("State", state)
+{console.log("JobDetails State", state)
 return state;}
 
 const mapDispatchToProps = dispatch => ({
@@ -23,14 +24,22 @@ const mapDispatchToProps = dispatch => ({
     payload: jobId 
   }),
 });
+
+
 function JobDetails(props) {
   const [jobDetails, setJobDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [toggleFav, setToggleFav] = useState(false);
 
-  const handleFav = async () => {
-    setToggleFav(!toggleFav);
-  };
+  // const handleFav = async () => {
+  //   setToggleFav(!toggleFav);
+  //   if (toggleFav){
+  //     await removeFromFavs(jobDetails?.id)
+  //   } else {
+  //     await addToFavs(jobDetails?.id)
+  //   }
+  // };
+
 
   useEffect(() => {
     getJobInfo();
@@ -60,6 +69,7 @@ function JobDetails(props) {
                   className="logo"
                 />
                 {props.user.username ? (
+                  
                   <Button
                     className="every-button"
                     onClick={() => 
@@ -71,23 +81,11 @@ function JobDetails(props) {
                       className="icon-padding"
                       style={{ color: "red" }}
                     />
-                    Add to Favs
                   </Button>)
                  
                 : (<div>**Log in to save job details</div>)} 
 
- {/* <Button
-                    className="every-button"
-                   onClick={() => props.removeFromFavs(jobDetails?.id)}
-                    >
-                   {" "}
-                   <FontAwesomeIcon
-                     icon={faHeart}
-                     className="icon-padding"
-                     style={{ color: "red" }}
-                   />
-                   Remove from Favs
-                    </Button> */}
+
 
               </Col>
               <Col lg={6} md={12} className="px-4">

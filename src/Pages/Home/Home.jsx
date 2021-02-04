@@ -38,8 +38,8 @@ function Home() {
   const body = () => {
     return (
       <Row>
-        <Col md={12}>
-          <div className="search-fields-container">
+        {/* <Col md={12}>
+          <div className="search-fields-container"> */}
             <Search
               handleSearch={handleSearch}
               updateSearch={updateSearch}
@@ -48,19 +48,19 @@ function Home() {
                 location: searchLocation,
               }}
             />
-          </div>
+          {/* </div>
         </Col>
 
         <Col md={12}>
-          <div>
+          <div> */}
             <JobList jobList={jobList} />
-          </div>
-        </Col>
+          {/* </div>
+        </Col> */}
       </Row>
     );
   };
 
-  return <div><Image src={Background} className="hero-image" />
+  return <div>
   {isLoading ? <Spinner animation="border" variant="primary"><span className="sr-only">Loading...</span></Spinner> : body()}</div>;
 }
 

@@ -5,6 +5,7 @@ import uniqid from "uniqid";
 import "../JobList/JobList.css";
 
 
+  
 function JobList(props) {
 
 	const { jobList } = props;

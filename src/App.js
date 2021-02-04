@@ -18,7 +18,7 @@ function App() {
           exact
           render={props => <JobDetails {...props} />}
         />
-        <Route path="/favs" exact component={FavList} />
+        <Route path="/favs" exact render={props => <FavList {...props} />} />
       </Router>
     </div>
   );

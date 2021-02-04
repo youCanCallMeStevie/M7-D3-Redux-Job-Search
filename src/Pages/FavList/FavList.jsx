@@ -1,47 +1,40 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import {  Container } from "react-bootstrap";
 import { connect } from "react-redux";
-import uniqid from "uniqid"
+import uniqid from "uniqid";
+import Job from "../../Components/Job/Job";
 
-const mapStateToProps = (state) => 
-{console.log("State", state)
-return state;}
+const mapStateToProps = state => {
+  console.log("State FavList", state);
+  return state;
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  removeFromFavs: (jobId) =>
-    dispatch({ type: "REMOVE_JOB_FROM_FAVS", payload: jobId }),
-});
+
 
 class FavList extends Component {
   render() {
-    const list = this.props.favourites.jobs.map((jobId) =>
-      list.find((job) => job.id === jobId)
-    );
+    const favourites = this.props.favourites.jobs;
     return (
-      <div className="row">
-        <ul className="col-sm-12" style={{ listStyle: "none" }}>
-          {list && list.map((job) => (
-            <li key={uniqid} className="my-4">
-              <Button
-                variant="danger"
-                onClick={() => this.props.removeFromFavs(job?.id)}
-              >
-                <FontAwesomeIcon icon={faTrash} id="trashIcon" />
-              </Button>
-              <img
-                className=""
-                src={job?.company_logo}
-                alt="company's logo"
-              />
-              {job?.title}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Container>
+        <div className="mt-5 border-top border-secondary">
+          <h2 className="my-3">
+            {favourites.length > 0
+              ? `Showing ${favourites.length} favorite ${
+                  favourites.length === 1 ? "job" : "jobs"
+                }`
+              : "You have no favorite jobs"}
+          </h2>
+          <hr />
+          {favourites &&
+            favourites.map(job => (
+              <div key={uniqid}>
+                <Job job={job} history={this.props.history} />
+              </div>
+            ))}
+        </div>
+      </Container>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FavList);
+export default connect(mapStateToProps)(FavList);
